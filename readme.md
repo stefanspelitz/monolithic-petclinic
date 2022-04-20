@@ -50,3 +50,5 @@ Petclinic uses an in-memory database (HSQLDB) which gets populated at startup wi
 ## Notes
 
 This repository is used for the workshop 'Refactoring a Monolith to Microservices'
+
+Simona test
