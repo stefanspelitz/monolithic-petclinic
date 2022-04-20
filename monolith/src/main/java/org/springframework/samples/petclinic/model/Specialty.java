@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.model;
 
+import org.springframework.samples.petclinic.vet.Vet;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
