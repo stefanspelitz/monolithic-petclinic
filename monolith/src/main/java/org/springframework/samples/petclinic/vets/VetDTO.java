@@ -1,13 +1,19 @@
 package org.springframework.samples.petclinic.vets;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class VetDTO {
+public class VetDTO implements Serializable
+{
     private String firstName;
     private String lastName;
     private Integer id;
 
     private List<String> specialties;
+
+    public VetDTO() {
+
+    }
 
     public VetDTO(Integer id, String firstName, String lastName, List<String> specialties) {
         this.id = id;
@@ -34,5 +40,25 @@ public class VetDTO {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public void setFirstName( String firstName )
+    {
+        this.firstName = firstName;
+    }
+
+    public void setLastName( String lastName )
+    {
+        this.lastName = lastName;
+    }
+
+    public void setId( Integer id )
+    {
+        this.id = id;
+    }
+
+    public void setSpecialties( List<String> specialties )
+    {
+        this.specialties = specialties;
     }
 }
