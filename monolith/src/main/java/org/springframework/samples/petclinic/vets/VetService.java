@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class VetService {
+public class VetService implements IVetService {
 
     private final VetRepository vets;
 

@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.vets;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -29,9 +30,9 @@ import java.util.Map;
 @Controller
 class VetController {
 
-    private final VetService service;
+    private final IVetService service;
 
-    public VetController(VetService vetService) {
+    public VetController(@Qualifier("rest") IVetService vetService) {
         this.service = vetService;
     }
 
