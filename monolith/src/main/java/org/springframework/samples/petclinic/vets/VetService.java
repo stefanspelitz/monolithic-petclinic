@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.vets;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VetService {
@@ -13,7 +15,13 @@ public class VetService {
         this.vets = vets;
     }
 
-    public Collection<Vet> allVets() {
-        return this.vets.findAll();
+    public Collection<VetDTO> allVets() {
+        Collection<Vet> vets = this.vets.findAll();
+        return vets.stream().map(this::convert).collect(Collectors.toList());
+    }
+
+    private VetDTO convert(Vet vet) {
+        List<String> specialities = vet.getSpecialties().stream().map(specialty -> specialty.getName()).collect(Collectors.toList());
+        return new VetDTO(vet.getId(), vet.getFirstName(), vet.getLastName(), specialities);
     }
 }
