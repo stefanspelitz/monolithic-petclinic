@@ -15,8 +15,9 @@
  */
 package org.springframework.samples.petclinic.controller;
 
-import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.pets.Pet;
 import org.springframework.samples.petclinic.model.Visit;
+import org.springframework.samples.petclinic.pets.PetService;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -39,10 +40,12 @@ import java.util.Map;
 class VisitController {
 
     private final ClinicService service;
+    private final PetService petService;
 
 
-    public VisitController(ClinicService service) {
+    public VisitController( ClinicService service, PetService petService ) {
         this.service = service;
+        this.petService = petService;
     }
 
     /**
@@ -54,7 +57,7 @@ class VisitController {
      */
     @ModelAttribute("visit")
     public Visit loadPetWithVisit(@PathVariable("petId") int petId, Map<String, Object> model) {
-        Pet pet = this.service.petById(petId);
+        Pet pet = this.petService.petById(petId);
         pet.setVisitsInternal(this.service.visitsByPetId(petId));
         model.put("pet", pet);
         Visit visit = new Visit();

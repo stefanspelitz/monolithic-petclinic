@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.model;
+package org.springframework.samples.petclinic.pets;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+import org.springframework.samples.petclinic.base.NamedEntity;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Visit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +45,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "pets")
-public class Pet extends NamedEntity {
+public class Pet extends NamedEntity
+{
 
     @Column(name = "birth_date")
     private LocalDate birthDate;

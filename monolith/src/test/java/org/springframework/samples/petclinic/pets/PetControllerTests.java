@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.controller;
+package org.springframework.samples.petclinic.pets;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -38,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Colin But
  */
-@WebMvcTest(controllers = {PetController.class})
+@WebMvcTest(controllers = { PetController.class})
 class PetControllerTests {
 
     private static final int TEST_OWNER_ID = 1;
@@ -48,16 +46,19 @@ class PetControllerTests {
     MockMvc mockMvc;
 
     @MockBean
-    ClinicService service;
+    PetService petService;
+
+    @MockBean
+    ClinicService clinicService;
 
     @BeforeEach
     void setup() {
         PetType cat = new PetType();
         cat.setId(3);
         cat.setName("hamster");
-        given(this.service.petTypes()).willReturn(Collections.singletonList(cat));
-        given(this.service.ownerById(TEST_OWNER_ID)).willReturn(new Owner());
-        given(this.service.petById(TEST_PET_ID)).willReturn(new Pet());
+        given(this.petService.petTypes()).willReturn(Collections.singletonList(cat));
+        given(this.clinicService.ownerById(TEST_OWNER_ID)).willReturn(new Owner());
+        given(this.petService.petById(TEST_PET_ID)).willReturn(new Pet());
     }
 
     @Test

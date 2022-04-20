@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.base.BaseEntity;
 
 /**
  * Simple JavaBean domain object representing a visit.
@@ -32,7 +33,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "visits")
-public class Visit extends BaseEntity {
+public class Visit extends BaseEntity
+{
 
     @Column(name = "visit_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

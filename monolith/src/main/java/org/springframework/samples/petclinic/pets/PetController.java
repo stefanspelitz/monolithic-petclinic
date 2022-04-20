@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.controller;
+package org.springframework.samples.petclinic.pets;
 
 import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.ClinicService;
-import org.springframework.samples.petclinic.service.PetFormValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -42,14 +39,16 @@ class PetController {
 
     private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
     private final ClinicService service;
+    private final PetService petService;
 
-    public PetController(ClinicService service) {
+    public PetController( ClinicService service, PetService petService ) {
         this.service = service;
+        this.petService = petService;
     }
 
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes() {
-        return this.service.petTypes();
+        return this.petService.petTypes();
     }
 
     @ModelAttribute("owner")
@@ -89,13 +88,13 @@ class PetController {
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         }
         
-        this.service.save(pet);
+        this.petService.save(pet);
         return "redirect:/owners/{ownerId}";
     }
 
     @GetMapping("/pets/{petId}/edit")
     public String initUpdateForm(@PathVariable("petId") int petId, ModelMap model) {
-        Pet pet = this.service.petById(petId);
+        Pet pet = this.petService.petById(petId);
         model.put("petForm", toForm(pet));
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
@@ -110,7 +109,7 @@ class PetController {
         
         Pet pet = toEntity(petForm);
         owner.addPet(pet);
-        this.service.save(pet);
+        this.petService.save(pet);
         return "redirect:/owners/{ownerId}";
     }
 
@@ -118,7 +117,7 @@ class PetController {
         Pet pet = new Pet();
         pet.setId(petForm.getId());
         pet.setName(petForm.getName());
-        Optional<PetType> typeByName = this.service.petTypes()
+        Optional<PetType> typeByName = this.petService.petTypes()
             .stream()
             .filter(t -> t.getName().equals(petForm.getType()))
             .findFirst();
